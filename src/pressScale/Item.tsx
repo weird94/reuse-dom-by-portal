@@ -57,7 +57,7 @@ const Item = ({
       setImgStyle({ ...imgStyle, transform: 'translate(0,0) scale(1)' });
       setTimeout(() => {
         onActiveChange(false);
-      }, 301);
+      }, 350);
     } else {
       onActiveChange(true);
     }

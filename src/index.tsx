@@ -8,7 +8,7 @@ const create = document.createElement;
 Object.defineProperty(document, 'createElement', {
   // @ts-ignore
   value: function (...args) {
-    // console.log('createElement called', ...args);
+    console.log('createElement called', ...args);
     // @ts-ignore
     return create.apply(document, args);
   },

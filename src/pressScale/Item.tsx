@@ -57,6 +57,7 @@ const Item = ({
       setImgStyle({ ...imgStyle, transform: 'translate(0,0) scale(1)' });
       setTimeout(() => {
         onActiveChange(false);
+        setImgStyle({ width: '45vw', height: (75 * 45) / 50 + 'vw' });
       }, 350);
     } else {
       onActiveChange(true);

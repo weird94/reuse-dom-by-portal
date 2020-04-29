@@ -10,6 +10,9 @@ const Item = ({
   container?: HTMLDivElement | null;
   onActiveChange: (active: boolean) => void;
 }) => {
+  const [hostContainer] = useState<HTMLDivElement>(() =>
+    document.createElement('div')
+  );
   const [ref, setRef] = useState<HTMLDivElement | null>(null);
   const [con, setCon] = useState<HTMLDivElement | undefined | null>(container);
   const [imgStyle, setImgStyle] = useState<React.CSSProperties>({
@@ -18,6 +21,11 @@ const Item = ({
   });
   const imgRef = useRef<HTMLImageElement | null>(null);
   const dom = con || ref;
+
+  useEffect(() => {
+    if (hostContainer) hostContainer.parentElement?.removeChild(hostContainer);
+    dom?.appendChild(hostContainer);
+  }, [dom, hostContainer]);
 
   useEffect(() => {
     if (container && imgRef.current) {
@@ -72,6 +80,7 @@ const Item = ({
           height: 300,
           backgroundColor: 'white',
           margin: '2.5vw',
+          position: 'relative',
         }}
         ref={(dom) => {
           setRef(dom);
@@ -81,9 +90,12 @@ const Item = ({
         {dom
           ? ReactDOM.createPortal(
               <img ref={imgRef} src={src} style={imgStyle} alt='' />,
-              dom
+              hostContainer
             )
           : null}
+        <div style={{ position: 'absolute', bottom: 0, left: 0 }}>
+          hello world
+        </div>
       </div>
     </div>
   );

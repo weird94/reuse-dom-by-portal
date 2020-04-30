@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import Reparent from '../Reparent';
 
 const Item = ({
   src,
@@ -10,9 +10,6 @@ const Item = ({
   container?: HTMLDivElement | null;
   onActiveChange: (active: boolean) => void;
 }) => {
-  const [hostContainer] = useState<HTMLDivElement>(() =>
-    document.createElement('div')
-  );
   const [ref, setRef] = useState<HTMLDivElement | null>(null);
   const [con, setCon] = useState<HTMLDivElement | undefined | null>(container);
   const [imgStyle, setImgStyle] = useState<React.CSSProperties>({
@@ -21,11 +18,6 @@ const Item = ({
   });
   const imgRef = useRef<HTMLImageElement | null>(null);
   const dom = con || ref;
-
-  useEffect(() => {
-    if (hostContainer) hostContainer.parentElement?.removeChild(hostContainer);
-    dom?.appendChild(hostContainer);
-  }, [dom, hostContainer]);
 
   useEffect(() => {
     if (container && imgRef.current) {
@@ -87,12 +79,9 @@ const Item = ({
         }}
         onClick={onClickFn}
       >
-        {dom
-          ? ReactDOM.createPortal(
-              <img ref={imgRef} src={src} style={imgStyle} alt='' />,
-              hostContainer
-            )
-          : null}
+        <Reparent container={dom}>
+          <img ref={imgRef} src={src} style={imgStyle} alt='' />
+        </Reparent>
         <div style={{ position: 'absolute', bottom: 0, left: 0 }}>
           hello world
         </div>

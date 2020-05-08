@@ -29,12 +29,8 @@ const Item = ({ src, container, onActiveChange }: Props) => {
 
   useEffect(() => {
     if (container && imgRef.current) {
-      const {
-        width,
-        height,
-        left,
-        top,
-      } = imgRef.current.getBoundingClientRect();
+      const rectInfo = imgRef.current.getBoundingClientRect();
+      const { width, height, left, top } = rectInfo;
 
       const newImgStyle: React.CSSProperties = {
         height,
@@ -64,7 +60,7 @@ const Item = ({ src, container, onActiveChange }: Props) => {
       setImgStyle({ ...imgStyle, transform: 'translate(0,0) scale(1)' });
       setTimeout(() => {
         onActiveChange(false);
-        setImgStyle({ width: '45vw', height: (75 * 45) / 50 + 'vw' });
+        setImgStyle(imgSty);
       }, 350);
     } else {
       onActiveChange(true);

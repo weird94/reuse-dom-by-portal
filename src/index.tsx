@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './pressScale/index';
 import * as serviceWorker from './serviceWorker';
+import './fragment';
 
 const create = document.createElement;
 Object.defineProperty(document, 'createElement', {
@@ -25,3 +26,8 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+var fragment = document.createElement('x-fragment');
+fragment.appendChild(document.createElement('div'));
+
+document.body.appendChild(fragment);

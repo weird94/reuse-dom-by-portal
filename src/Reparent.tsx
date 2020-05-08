@@ -7,7 +7,9 @@ type Props = {
 };
 
 const Reparent = ({ container, children }: Props) => {
-  const [portalContainer] = useState(() => document.createElement('div'));
+  const [portalContainer] = useState(() =>
+    document.createElement('x-fragment')
+  );
 
   useEffect(() => {
     portalContainer.parentElement?.removeChild(portalContainer);
